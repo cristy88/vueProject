@@ -23,22 +23,37 @@ const TwoTit = [
     name: 2
   }
 ]
-// const curIx = (Number(localStorage.getItem('curI')) || 0)
+const curIx = Number(localStorage.getItem('curI')) || 0
 // const Onex = Number(localStorage.getItem('One')) || 0
 // const Twox = Number(localStorage.setItem('Two')) || 0
-// const allTabsx = JSON.parse(localStorage.getItem('allTabs')) || [{ title: '资金组成', path: '/fund',name: 0}]
+const allTabsx = JSON.parse(localStorage.getItem('allTabs')) || [{ title: '资金组成', path: '/fund',name: 0}]
 
 const One = ref(0)
 const Two = ref(0)
-const curI = ref(0)
-const allTabs =ref([{
-  title: '资金组成', path: '/fund',name: 0
-}])
+// const curI = ref(0)
+// const allTabs =ref([{
+//   title: '资金组成', path: '/fund',name: 0
+// }])
+const curI = ref(curIx)
+// const allTabs = ref(JSON.parse(localStorage.getItem('allTabs'))) || ref([{ title: '资金组成', path: '/fund',name: 0}])
+const allTabs = ref(allTabsx)
+// router.push(allTabs.value[curI.value].path)
+Two.value = allTabs.value[curI.value].name
 
-
-router.push(allTabs.value[curI.value].path)
+watch(curI, ()=>{
+  if (allTabs.value[curI.value].name <= 2) {
+    One.value = 0
+  } else {
+    One.value = 1
+  }
+  router.push(allTabs.value[curI.value].path)
+  Two.value = allTabs.value[curI.value].name
+  localStorage.setItem('curI', curI.value)
+})
+// router.push(allTabs.value[curI.value].path)
 const exit = () => {
-  localStorage.removeItem('token')
+  // localStorage.removeItem('token')
+  localStorage.clear()
   router.push('/login')
 }
 
@@ -49,7 +64,7 @@ const changeMoney = () => {
 const changeOne = () => {
   One.value = 1
   tit.value = '系统管理'
-  router.push('/system')
+  // router.push('/system')
   const I = allTabs.value.findIndex(v => v.title === '系统管理')
   if (I === -1) {
     allTabs.value.push({
@@ -61,7 +76,7 @@ const changeOne = () => {
     return
   }
   curI.value = I
-  Two.value = 4
+  // Two.value = 4
 }
 const toPage = (index) => {
   tit.value=TwoTit[index].title
@@ -78,18 +93,10 @@ const toPage = (index) => {
   router.push(TwoTit[index].path)
 }
 
-watch(curI, ()=>{
-  if (allTabs.value[curI.value].name <= 2) {
-    One.value = 0
-  } else {
-    One.value = 1
-  }
-})
-
 const changeCurI = (index) => {
   curI.value = index
-  Two.value = allTabs.value[index].name
-  router.push(allTabs.value[curI.value].path)
+  // Two.value = allTabs.value[index].name
+  // router.push(allTabs.value[curI.value].path)
 }
 
 const removeTab = (index) => {
@@ -100,21 +107,19 @@ const removeTab = (index) => {
     if (curI.value === index) {
       if (index - 1 >= 0){
         --curI.value
-        router.push(allTabs.value[index - 1].path)
+        // router.push(allTabs.value[index - 1].path)
       } else {
         curI.value = 0
         router.push(allTabs.value[0].path)
+        Two.value = allTabs.value[curI.value].name
       }
-      Two.value = allTabs.value[curI.value].name
+      // Two.value = allTabs.value[curI.value].name
     }
     if(index < curI.value) { --curI.value }
   }
 }
 
-watch([curI, One, Two, allTabs],() => {
-  localStorage.setItem('curI', curI.value)
-  localStorage.setItem('One', One.value)
-  localStorage.setItem('Two', Two.value)
+watch(allTabs, () => {
   localStorage.setItem('allTabs', JSON.stringify(allTabs.value))
   // router.push(allTabs.value[curI.value].path)
 },
@@ -141,7 +146,7 @@ watch([curI, One, Two, allTabs],() => {
               @click="toPage(index)"
             >{{ item.title }}</p>
           </template>
-          <p class="Pactive" v-if="One===1">系统管理</p>
+          <p class="pactive" v-if="One===1">系统管理</p>
         </div>
       </el-aside>
       <el-container>
