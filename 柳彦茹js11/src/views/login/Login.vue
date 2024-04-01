@@ -5,7 +5,7 @@ import { ElMessage } from 'element-plus'
 
 const username = ref('')
 const pwd = ref('')
-const route = useRoute()
+// const route = useRoute()
 const router = useRouter()
 const toHome = () => {
   if (username.value !=='admin' || pwd.value !== '123'){
