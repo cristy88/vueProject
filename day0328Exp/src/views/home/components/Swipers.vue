@@ -29,7 +29,8 @@
   import 'swiper/css/navigation'
   import 'swiper/css/autoplay'
 
-  import { BannerItem, getBanners } from '@/api'
+  import { getBanners } from '@/api'
+  import type { bannersItem } from  '@/api'
   // import required modules
   import { Pagination,  Autoplay } from 'swiper/modules'
   import { ref } from 'vue'
@@ -40,7 +41,7 @@
       SwiperSlide,
     },
     setup() {
-      const banners = ref(<BannerItem>[])
+      const banners = ref<bannersItem[]>([])
       getBanners().then(res => {
         console.log(res.data)
         banners.value = res.data.banners

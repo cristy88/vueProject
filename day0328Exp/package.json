@@ -13,6 +13,8 @@
   "dependencies": {
     "@vant/area-data": "^1.5.1",
     "axios": "^1.6.8",
+    "js-md5": "^0.8.3",
+    "md5": "^2.3.0",
     "pinia": "^2.1.7",
     "swiper": "^11.0.7",
     "vant": "^4.8.7",
@@ -21,6 +23,8 @@
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.2",
+    "@types/js-md5": "^0.7.2",
+    "@types/md5": "^2.3.5",
     "@types/mockjs": "^1.0.10",
     "@types/node": "^20.11.28",
     "@vitejs/plugin-vue": "^5.0.4",

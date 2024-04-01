@@ -47,6 +47,7 @@ watch(goodStore.cartList, () => {
       :name="addressStore.findInfo?.name"
       @click="router.push('/listAddress')"
     />
+    <van-empty v-if="goodStore.cartList.length===0" image="./src/assets/emptyCart.png" image-size="80" description="购物车为空，请添加商品"/>
     <div class="pro">
       <van-row v-for="item in goodStore.cartList" :key="item.id" justify="center" align="center">
         <van-col span="3">

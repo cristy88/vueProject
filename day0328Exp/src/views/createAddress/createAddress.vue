@@ -1,10 +1,12 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { showConfirmDialog } from 'vant'
 import type { address } from '@/stores/addressStore'
 import { areaList } from '@vant/area-data'
 import { useAddressStore } from '@/stores/addressStore'
 import { showNotify } from 'vant'
+import { getDetailAddress } from '@/api'
 
 const addressStore = useAddressStore()
 const route = useRoute()
@@ -37,6 +39,11 @@ const onDelete = (info: address) => {
     })
 }
 
+const resultList = ref<address[]>([])
+
+getDetailAddress('ATM机', '北京').then(res => {
+  console.log('地址搜索', res)
+}).catch(err => console.log(err))
 </script>
 
 <template>

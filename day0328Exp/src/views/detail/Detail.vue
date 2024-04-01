@@ -29,7 +29,7 @@ const add = () => {
     </van-swipe-item>
   </van-swipe>
   <p>{{ pro?.name }}</p>
-  <p>{{ pro?.price }}</p>
+  <p>￥<span class="price">{{ pro?.price }}</span></p>
   <van-action-bar>
     <van-action-bar-icon icon="chat-o" text="客服" dot />
     <van-action-bar-icon icon="cart-o" text="购物车" :badge="goodStore.total.sum" @click="router.push('/cart')" />
@@ -40,5 +40,12 @@ const add = () => {
 </template>
 
 <style lang='scss' scoped>
-
+  p {
+    font-size: 20px;
+    font-weight: 900;
+    padding-left: 20px;
+  }
+  .price {
+    color: red;
+  }
 </style>
